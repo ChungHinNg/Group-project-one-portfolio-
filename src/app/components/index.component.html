@@ -1,0 +1,51 @@
+<!-- header -->
+<app-header [title]="title"></app-header>
+
+<!-- Main Content -->
+<div
+  class="banner"
+  style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url(assets/banner.jpg);
+  "
+>
+  <h1>24/7 BAZAAR</h1>
+</div>
+<main>
+  <div class="intro">
+    A platform that make used products valuable. Buy and sell handmade and
+    vintage items online.
+  </div>
+  <div class="thumbnail">
+    <div class="card" style="width: 400px">
+      <img
+        class="card-img-top"
+        src="assets/buy.jpg"
+        alt="Card image"
+        style="width: 100%"
+      />
+      <div class="card-body">
+        <h4 class="card-title">Buy A Product</h4>
+        <p class="card-text">Buy good condition used items</p>
+        <a href="#" routerLink="/post/list" class="btn btn-primary"
+          >Explore Now</a
+        >
+      </div>
+    </div>
+    <div class="card" style="width: 400px">
+      <img
+        class="card-img-top"
+        src="assets/sell.jpg"
+        alt="Card image"
+        style="width: 100%"
+      />
+      <div class="card-body">
+        <h4 class="card-title">Sell A Product</h4>
+        <p class="card-text">Sell your unwanted things</p>
+        <a href="#" routerLink="/post/add" class="btn btn-primary">Post Now</a>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Footer -->
+<app-footer></app-footer>

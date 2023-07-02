@@ -1,0 +1,154 @@
+<!-- header -->
+<app-header [title]="title"></app-header>
+
+<!-- Content for the Details page -->
+<div
+  class="banner"
+  style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url(assets/banner_sell.jpg);
+  "
+>
+  <h1>{{ item.title }}</h1>
+</div>
+<br />
+<br />
+<br />
+<br />
+<div class="container">
+  <div class="row">
+    <div class="offset-md-2 col-md-4">
+      <img src="{{ item.picture }}" class="details-image" style="width: 100%" />
+    </div>
+    <div class="col-md-6" id="info">
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.description }}</p>
+      <h4 style="color: darkcyan">CAD {{ item.price }}</h4>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="row">
+    <div class="offset-md-2 col-md-8">
+      <h4>Questions for the Owner</h4>
+      <div
+        class="table-responsive"
+        *ngIf="questionList.length != 0; else noquestion"
+      >
+        <table
+          class="table table-striped table-hover"
+          *ngFor="let question of questionList"
+        >
+          <tr>
+            <th style="text-align: left !important">
+              <i class="fa-solid fa-circle-question"></i>
+              <strong>{{ question.questioner }}:</strong>
+              {{ question.question }}
+            </th>
+          </tr>
+          <tr *ngIf="question.response != null; else middletemp">
+            <td style="text-align: left !important; padding-left: 40px">
+              <strong>Owner's response:</strong> {{ question.response }}
+            </td>
+          </tr>
+          <ng-template #middletemp
+            ><a *ngIf="item.owner._id != user._id; else noresponse"></a
+          ></ng-template>
+          <ng-template #noresponse>
+            <td style="padding-left: 40px">
+              <form novalidate #form="ngForm" (ngSubmit)="postResponse($event)">
+                <div class="form-group">
+                  <input type="hidden" name="itemid" [(ngModel)]="item._id" />
+                  <input
+                    type="hidden"
+                    name="questionid"
+                    [(ngModel)]="question._id"
+                  />
+                  <input
+                    type="hidden"
+                    name="questioner"
+                    [(ngModel)]="question.questioner"
+                  />
+                  <input
+                    type="hidden"
+                    name="questioncontent"
+                    [(ngModel)]="question.question"
+                  />
+                  <label for="responseTextField">Response</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="responseTextField"
+                    placeholder="Enter your response"
+                    name="response"
+                    required
+                  />
+                </div>
+                <div
+                  class="button"
+                  style="text-align: right; margin-bottom: 0px"
+                >
+                  <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-edit"></i>
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </td>
+          </ng-template>
+        </table>
+      </div>
+      <ng-template #noquestion>
+        <p>No question posted</p>
+        <br />
+        <br />
+      </ng-template>
+    </div>
+  </div>
+  <div class="row">
+    <div class="offset-md-2 col-md-8">
+      <div
+        class="bg-danger mt-2 p-2 text-center text-white"
+        *ngIf="message != null"
+      >
+        {{ message }}
+      </div>
+      <form novalidate #form="ngForm" (ngSubmit)="postQuestion(form)">
+        <div class="form-group">
+          <input type="hidden" name="id" [(ngModel)]="item._id" />
+          <label for="questionTextField"><h4>Ask the Owner</h4></label>
+          <input
+            type="text"
+            class="form-control"
+            id="questionTextField"
+            placeholder="Enter your question"
+            name="question"
+            [(ngModel)]="question.question"
+            required
+          />
+        </div>
+        <br />
+        <br />
+        <div class="button">
+          <button class="btn btn-primary" type="submit">
+            <i class="fas fa-edit"></i>
+            Submit
+          </button>
+          <a
+            href="#"
+            routerLink="#"
+            routerLink="/post/list"
+            class="btn btn-warning"
+          >
+            <i class="fas fa-undo"></i>
+            Cancel
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<app-footer></app-footer>

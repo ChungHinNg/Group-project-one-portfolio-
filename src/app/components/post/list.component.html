@@ -1,0 +1,76 @@
+<!-- header -->
+<app-header [title]="title"></app-header>
+
+<!-- Main Content -->
+<div class="banner" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(assets/banner_buy.jpg);">
+  <h1>{{ title }}</h1>
+</div>
+<main class="container">
+  <div class="row">
+    <div>
+      <a
+        routerLink="/post/add"
+        class="btn btn-primary align-self-end mb-2"
+        role="button"
+      >
+        <i class="fa-solid fa-plus"></i>
+        &nbsp;&nbsp;Add a new Post
+      </a>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <!-- Header Row-->
+        <tr>
+          <th class="text-center">Product Name</th>
+          <th class="text-center">Image</th>
+          <th class="text-center">Price (CAD)</th>
+          <th class="text-center">Description</th>
+          <th class="text-center" colspan="3">Actions</th>
+        </tr>
+        <tr *ngFor="let item of postList">
+          <!-- if (PostList[count].status == "Active" && PostList[count].startDate <=
+          currentDate && currentDate <= PostList[count].expireDate) { %> -->
+          <td class="text-center" >
+            {{ item.title }}
+          </td>
+          <td class="text-center">
+            <img src="{{ item.picture }}" />
+          </td>
+          <td class="text-center">
+            {{ item.price }}
+          </td>
+          <td class="text-center">
+            {{ item.description }}
+          </td>
+          <!-- Details -->
+          <td class="text-center">
+            <button
+              [routerLink]="['/post/details/' + item._id]"
+              class="btn bg-primary btn-primary btn-sm" style="padding:10px 18px; background-color: darkcyan!important; --bs-btn-border-color: darkcyan; --bs-btn-hover-border-color: darkcyan!important">
+              <i class="fa-solid fa-info"></i>
+            </button>
+          </td>
+          <!-- Edit -->
+          <td class="text-center">
+            <button
+              [routerLink]="['/post/edit/' + item._id]"
+              class="btn bg-primary btn-primary btn-sm">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <!-- Disable -->
+          <td class="text-center">
+            <a 
+            (click)="deleteMethod(item._id)"
+            class="btn bg-danger btn-danger btn-sm">
+              <i class="fa-solid fa-eye-slash"></i>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</main>
+<!-- Footer -->
+<app-footer></app-footer>
